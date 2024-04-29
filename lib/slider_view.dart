@@ -41,6 +41,7 @@ class SliderViewConfig<T> extends Equatable {
     this.onPageChanged,
     this.onPageIndexChanged,
     this.routeObserver,
+    this.physics,
   })  : assert(
           (width != null && height != null) || aspectRatio != null,
           'At least one set of size constraints need to be set.',
@@ -137,6 +138,9 @@ class SliderViewConfig<T> extends Equatable {
 
   /// The y-axis offset of indicators from the bottom.
   final double? indicatorOffsetFromBottom;
+
+  /// How the page view should respond to user input.
+  final ScrollPhysics? physics;
 
   /// Build the indicator with the given interpolation of page.
   final Widget Function(
@@ -467,6 +471,8 @@ class SlideViewState<T> extends State<SliderView<T>>
     final Widget body = NotificationListener<ScrollNotification>(
       onNotification: _onScrollNotification,
       child: PageView.builder(
+        scrollDirection: config.scrollDirection,
+        physics: config.physics,
         scrollBehavior: ScrollConfiguration.of(context).copyWith(
           scrollbars: false,
           // Capable with desktops.
