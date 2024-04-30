@@ -326,6 +326,7 @@ class SlideViewState<T> extends State<SliderView<T>>
 
   void jumpToPage(int page) {
     if (mounted) {
+      page = _hasOnlyOneModel ? page : page + _kFillerPageNum;
       _pageController.jumpToPage(page);
     }
   }
